@@ -1,0 +1,17 @@
+{% extends "skel.html" %}
+{% block title %}sudo{% endblock %}
+{% block article %}
+<section>
+    <h3>Authorization Required</h3>
+    <p>Interested? Try to gain access and leave your footprint on the homepage. Don't forget to contact me right after that.</p>
+</section>
+<section>
+    <form method="post">
+        <fieldset>
+            <label>Password:</label>
+            <input type="password" name="password">
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
+</section>
+{% endblock %}

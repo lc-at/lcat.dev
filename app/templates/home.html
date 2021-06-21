@@ -1,0 +1,37 @@
+{% extends "skel.html" %}
+{% block title %}Home{% endblock %}
+{% block head_scripts %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+{% endblock %}
+{% block article %}
+<section>
+    <table id="logTable" class="display compact">
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Title</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="dt-center ts-wrap">2021-06-12T12:29:29.394063</td>
+                <td style="min-width: 50% !important;">Lorem ipsum dolor sit amet</td>
+                <td class="dt-center">
+                    <a href="aaa">view</a> |
+                    <a href="aaa">download</a> |
+                    <a href="raw">raw</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+{% endblock %}
+{% block body_scripts %}
+<script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#logTable').DataTable();
+    });
+</script>
+{% endblock %}
