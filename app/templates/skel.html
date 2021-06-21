@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='awsm.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block head_scripts %}{% endblock %}
+    <title>lcat &mdash; {% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <header>
+        <h1>lcat</h1>
+        <p>My personal <code>/var/log</code></p>
+        {% macro nav_link(endpoint, page_name) %}
+        {% if request.endpoint != endpoint %}
+        <a href="{{ url_for(endpoint) }}">{{ page_name }}</a>
+        {% else %}
+        {{ page_name }}
+        {% endif %}
+        {% endmacro %}
+        <nav>
+            <ul>
+                <li>{{ nav_link('root', 'Home') }}</li>
+                <li>{{ nav_link('root', 'Search') }}</li>
+                <li>{{ nav_link('root', 'Contact') }}</li>
+                <li>{{ nav_link('sudo', 'HackMe') }}</li>
+            </ul>
+        </nav>
+    </header>
+    <article>
+        {% block article %}
+        {% endblock %}
+    </article>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    {% block body_scripts %}{% endblock %}
+</body>
+
+</html>

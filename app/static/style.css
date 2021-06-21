@@ -1,0 +1,13 @@
+#logTable_filter > label:nth-child(1) > input:nth-child(1) {
+    display: inline !important;
+    width: auto !important;
+}
+
+.grey-box {
+    background-color: #f9f9f9 !important;
+    padding: 1rem;
+}
+
+.ts-wrap {
+    word-wrap: break-word !important;
+}
