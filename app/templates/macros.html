@@ -11,7 +11,7 @@
         {% for log_post in log_posts %}
         <tr>
             <td class="dt-center ts-wrap small">
-                {{ log_post.creation_ts.isoformat() }}
+                {{ log_post.created.isoformat() }}
             </td>
             <td style="min-width: 50% !important;">{{ log_post.title }}</td>
             <td class="dt-center">

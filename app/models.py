@@ -7,9 +7,12 @@ from . import app, db
 
 class LogPost(db.Model):
     id = db.Column(db.String(36), primary_key=True)
-    creation_ts = db.Column(db.DateTime,
+    created = db.Column(db.DateTime,
                             nullable=False,
                             default=datetime.datetime.now())
+    last_updated = db.Column(db.DateTime,
+                             nullable=False,
+                             default=datetime.datetime.now())
     title = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=True)
     is_markdown = db.Column(db.Boolean, nullable=True)
