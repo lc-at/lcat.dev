@@ -20,7 +20,7 @@ body{
   margin:1.2em;
   font-size:1rem;
 }
-@media (min-width: 20rem){
+@media (max-width: 20rem){
   body{
     font-size:calc(1rem + 0.00625 * (100vw - 20rem));
   }

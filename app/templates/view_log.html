@@ -1,0 +1,16 @@
+{% extends "skel.html" %}
+{% block title %}{{ log_post.title }}{% endblock %}
+{% block article %}
+<section>
+    <h2>{{ log_post.title }}</h2>
+    <br>
+    <div class="log-content log-box">
+        {% if log_post.is_markdown %}
+        {{ processed_content|safe }}
+        {% else %}
+        {{ processed_content }}
+        {% endif %}
+    </div>
+    <small>Created: {{ log_post.creation_ts.isoformat() }}, ID: {{ log_post.id }}</small>
+</section>
+{% endblock %}

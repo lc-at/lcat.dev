@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+
+<!--
+    __           __       __         
+   / /________ _/ /_ ____/ /__ _   __
+  / / ___/ __ `/ __// __  / _ \ | / /
+ / / /__/ /_/ / /__/ /_/ /  __/ |/ / 
+/_/\___/\__,_/\__(_)__,_/\___/|___/  
+
+nothing to see here, geek!
+instead, see it here: https://github.com/ttycelery/lcat.dev
+-->
+
 <html lang="en">
 
 <head>
@@ -26,11 +38,27 @@
                 <li>{{ nav_link('root', 'Home') }}</li>
                 <li>{{ nav_link('root', 'Search') }}</li>
                 <li>{{ nav_link('root', 'Contact') }}</li>
-                <li>{{ nav_link('sudo', 'HackMe') }}</li>
+                {% if not session.get('authed') %}
+                <li>{{ nav_link('admin.login', 'HackMe') }}</li>
+                {% else %}
+                <li>{{ nav_link('admin.write_log', 'Write') }}</li>
+                <li>{{ nav_link('admin.change_password', 'Change Password') }}</li>
+                <li>{{ nav_link('admin.logout', 'Logout') }}</li>
+                {% endif %}
             </ul>
         </nav>
     </header>
     <article>
+        {% set flashed_messages = get_flashed_messages() %}
+        {% if flashed_messages %}
+        <div class="alert-box">
+            <ul>
+                {% for message in get_flashed_messages() %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
         {% block article %}
         {% endblock %}
     </article>
