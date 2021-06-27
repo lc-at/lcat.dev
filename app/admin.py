@@ -1,4 +1,5 @@
-import re
+import datetime
+
 from flask import (Blueprint, abort, flash, redirect, render_template, request,
                    session, url_for)
 
@@ -83,6 +84,7 @@ def edit_log(log_post_id):
         log_post.title = title
         log_post.content = content
         log_post.is_markdown = is_markdown
+        log_post.last_updated = datetime.datetime.now()
         db.session.commit()
 
         flash(f'Updated log post {log_post.id}.')

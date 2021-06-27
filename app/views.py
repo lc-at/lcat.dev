@@ -19,7 +19,7 @@ def requires_auth(f):
 
 @app.route('/')
 def root():
-    log_posts = LogPost.query.order_by(LogPost.creation_ts.desc()).all()
+    log_posts = LogPost.query.order_by(LogPost.created.desc()).all()
     return render_template('home.html', log_posts=log_posts)
 
 
@@ -31,7 +31,7 @@ def search():
             (LogPost.title.ilike(f'%{keyword}%'))
             | (LogPost.content.ilike(f'%{keyword}%'))
             | (LogPost.id == keyword)).order_by(
-                LogPost.creation_ts.desc()).all()
+                LogPost.created.desc()).all()
         return render_template('search.html', log_posts=log_posts, search=True)
     return render_template('search.html')
 
