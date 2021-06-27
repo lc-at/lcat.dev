@@ -21,7 +21,7 @@ def login():
             flash('No, not this time.')
         else:
             flash('Invalid password entered.')
-    return render_template('admin/sudo.html')
+    return render_template('admin/login.html')
 
 @bp.route('/change-password', methods=['GET', 'POST'])
 @requires_auth
