@@ -1,0 +1,15 @@
+CONTACT_ENTRIES = [
+    # Name, url, display text
+    ('GitHub', 'https://github.com/ttycelery'),
+    ('Telegram', 'https://t.me/ttycelery'),
+    ('Email', 'mailto:contact@lcat.dev', 'contact@lcat.dev')
+]
+
+SECRET_KEY = 'uikjf,n34 cewi4jk3m,ewajkm,nqc .f43ew '
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+SQLALCHEMY_DATABASE_URI = ''.join([
+    'mysql+pymysql://',  # database type and connector
+    'cat@localhost/',  # username, password, and host
+    'lcat',  # database name
+])
+CRED_FILE = 'lcat.passwd'
