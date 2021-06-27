@@ -39,7 +39,7 @@ def search():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
-@
+
 @app.route('/log/<log_post_id>')
 @app.route('/log/<log_post_id>/<view_type>')
 def view_log(log_post_id, view_type=None):
