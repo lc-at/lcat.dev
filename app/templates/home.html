@@ -14,15 +14,27 @@
             </tr>
         </thead>
         <tbody>
+            {% for log_post in log_posts %}
             <tr>
-                <td class="dt-center ts-wrap">2021-06-12T12:29:29.394063</td>
-                <td style="min-width: 50% !important;">Lorem ipsum dolor sit amet</td>
+                <td class="dt-center ts-wrap small">
+                    {{ log_post.creation_ts.isoformat() }}
+                </td>
+                <td style="min-width: 50% !important;">{{ log_post.title }}</td>
                 <td class="dt-center">
-                    <a href="aaa">view</a> |
-                    <a href="aaa">download</a> |
-                    <a href="raw">raw</a>
+                    <a href="{{ url_for('view_log', log_post_id=log_post.id) }}">view</a>
+                    <span class="separator">|</span>
+                    <a href="{{ url_for('view_log', log_post_id=log_post.id, view_type='download') }}">download</a>
+                    <span class="separator">|</span>
+                    <a href="{{ url_for('view_log', log_post_id=log_post.id, view_type='raw') }}">raw</a>
+                    {% if session.get('authed') %}
+                    <span class="separator">|</span>
+                    <a href="{{ url_for('admin.edit_log', log_post_id=log_post.id) }}">edit</a>
+                    <span class="separator">|</span>
+                    <a href="{{ url_for('admin.delete_log', log_post_id=log_post.id) }}" onclick="return confirm('Are you sure?')">delete</a>
+                    {% endif %}
                 </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 </section>
@@ -31,7 +43,9 @@
 <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#logTable').DataTable();
+        $('#logTable').DataTable({
+            order: [[0, "desc"]]
+        });
     });
 </script>
 {% endblock %}
