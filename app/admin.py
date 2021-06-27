@@ -15,12 +15,12 @@ def login():
     elif request.method == 'POST':
         if User.authenticate(request.form.get('password', '')):
             session['authed'] = True
-            flash('Authentication successful')
+            flash('Authentication  successful.')
             return redirect(url_for('root'))
         elif request.form.get('password') == 'password':
             flash('No, not this time.')
         else:
-            flash('Invalid password')
+            flash('Invalid password entered.')
     return render_template('admin/sudo.html')
 
 @bp.route('/change-password', methods=['GET', 'POST'])
@@ -33,10 +33,10 @@ def change_password():
         if not (new_password and confirm_new_password):
             abort(403)
         elif new_password != confirm_new_password:
-            flash('Password unchanged')
+            flash('Password unchanged.')
         else:
             User.change_password(new_password)
-            flash('Password changed')
+            flash('Password changed.')
             return logout()
     return render_template('admin/change_password.html')
 
@@ -95,5 +95,5 @@ def delete_log(log_post_id):
     log_post = LogPost.query.filter_by(id=log_post_id).first_or_404()
     db.session.delete(log_post)
     db.session.commit()
-    flash(f'Deleted log post {log_post.id}')
-    return redirect(url_for('root'))
+    flash(f'Deleted log post {log_post.id}.')
+    return redirect(request.referrer or url_for('root'))
