@@ -11,6 +11,6 @@
         {{ processed_content }}
         {% endif %}
     </div>
-    <small>Created: {{ log_post.creation_ts.isoformat() }}, ID: {{ log_post.id }}</small>
+    <small>Created: {{ log_post.creation_ts.isoformat() }}, ID: <code>{{ log_post.id }}</code></small>
 </section>
 {% endblock %}
