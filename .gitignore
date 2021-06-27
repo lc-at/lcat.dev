@@ -3,3 +3,5 @@ __pycache__
 *.pyc
 venv_dev
 .vscode
+config.py
+lcat.passwd
