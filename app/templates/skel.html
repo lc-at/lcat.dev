@@ -36,8 +36,8 @@ instead, see it here: https://github.com/ttycelery/lcat.dev
         <nav>
             <ul>
                 <li>{{ nav_link('root', 'Home') }}</li>
-                <li>{{ nav_link('root', 'Search') }}</li>
-                <li>{{ nav_link('root', 'Contact') }}</li>
+                <li>{{ nav_link('search', 'Search') }}</li>
+                <li>{{ nav_link('contact', 'Contact') }}</li>
                 {% if not session.get('authed') %}
                 <li>{{ nav_link('admin.login', 'HackMe') }}</li>
                 {% else %}
