@@ -23,6 +23,23 @@ def root():
     return render_template('home.html', log_posts=log_posts)
 
 
+@app.route('/search')
+def search():
+    keyword = request.args.get('keyword')
+    if keyword:
+        log_posts = LogPost.query.filter(
+            (LogPost.title.ilike(f'%{keyword}%'))
+            | (LogPost.content.ilike(f'%{keyword}%'))
+            | (LogPost.id == keyword)).order_by(
+                LogPost.creation_ts.desc()).all()
+        return render_template('search.html', log_posts=log_posts, search=True)
+    return render_template('search.html')
+
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+@
 @app.route('/log/<log_post_id>')
 @app.route('/log/<log_post_id>/<view_type>')
 def view_log(log_post_id, view_type=None):
