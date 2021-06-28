@@ -10,7 +10,6 @@ Lcat is Flask-based and runs perfectly (tested) only on Python 3.7.3.
 
 - Below is an example of deployment using Gunicorn.
 ```
-pip -r install requirements.txt
 gunicorn -b :7211 wsgi:app
 ```
 
