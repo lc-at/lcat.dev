@@ -24,6 +24,7 @@ def login():
             flash('Invalid password entered.')
     return render_template('admin/login.html')
 
+
 @bp.route('/change-password', methods=['GET', 'POST'])
 @requires_auth
 def change_password():
@@ -40,6 +41,7 @@ def change_password():
             flash('Password changed.')
             return logout()
     return render_template('admin/change_password.html')
+
 
 @bp.route('/logout')
 @requires_auth
