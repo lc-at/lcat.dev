@@ -1,5 +1,5 @@
 # lcat.dev
-This repository contains the source code for my personal website ![lcat.dev](https://lcat.dev).
+This repository contains the source code for my personal website [lcat.dev](https://lcat.dev).
 
 ## Installing
 1. `pip install -r requirements.txt`
