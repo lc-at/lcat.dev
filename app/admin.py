@@ -93,7 +93,7 @@ def edit_log(log_post_id):
 
 
 @bp.route('/delete/<log_post_id>')
-@bp.requires_auth
+@requires_auth
 def delete_log(log_post_id):
     log_post = LogPost.query.filter_by(id=log_post_id).first_or_404()
     db.session.delete(log_post)
