@@ -8,8 +8,8 @@ from . import app, db
 class LogPost(db.Model):
     id = db.Column(db.String(36), primary_key=True)
     created = db.Column(db.DateTime,
-                            nullable=False,
-                            default=datetime.datetime.now())
+                        nullable=False,
+                        default=datetime.datetime.now())
     last_updated = db.Column(db.DateTime,
                              nullable=False,
                              default=datetime.datetime.now())
