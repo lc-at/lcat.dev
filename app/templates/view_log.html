@@ -8,9 +8,7 @@
         {% if log_post.is_markdown %}
         {{ processed_content|safe }}
         {% else %}
-        <pre>
-        {{ processed_content }}
-        </pre>
+        <pre class="non-markdown-content">{{ processed_content }}</pre>
         {% endif %}
     </div>
     <small>

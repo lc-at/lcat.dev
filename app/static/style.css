@@ -39,6 +39,10 @@
     border-top: 1px dashed black;
 }
 
+.non-markdown-content {
+    margin-bottom: 0;
+}
+
 .alert-box ul {
     margin: 0;
     padding-left: inherit;
