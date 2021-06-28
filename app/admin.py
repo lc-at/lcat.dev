@@ -92,7 +92,7 @@ def edit_log(log_post_id):
     return render_template('admin/edit_log.html', log_post=log_post)
 
 
-@bp.route('/delete/<log_post_id>')
+@bp.route('/delete-log/<log_post_id>')
 @requires_auth
 def delete_log(log_post_id):
     log_post = LogPost.query.filter_by(id=log_post_id).first_or_404()
