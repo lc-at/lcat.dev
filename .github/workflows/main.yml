@@ -14,8 +14,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Install Python 3.7.5
+        uses: actions/setup-python@v2.2.2
+        with:
+          python-version: 3.7.5
+      
+      - name: Install requirements
+        run: pip install -r requirements.txt
+      
       - name: Linting
-        uses: WhyNotHugo/python-linting@v1.0.0
+        run: |
+          pip install flake8
+          flake8
     
       - name: Run git pull and restart supervisor program on prod server
         uses: JimCronqvist/action-ssh@0.1.1
