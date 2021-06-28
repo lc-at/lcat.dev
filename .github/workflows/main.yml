@@ -32,6 +32,7 @@ jobs:
         with:
           hosts: '${{secrets.SSH_USERNAME}}@${{secrets.SSH_HOST}}:${{secrets.SSH_PORT}}'
           privateKey: ${{secrets.SSH_PRIVATE_KEY}}
+          debug: true
           command: |
             cd ${{secrets.REMOTE_PATH}}
             sudo -u www-data git pull
