@@ -27,13 +27,11 @@ jobs:
           pip install flake8
           flake8
     
-      - name: Run git pull and restart supervisor program on prod server
-        uses: JimCronqvist/action-ssh@0.1.1
+      - name: Deploy using SSH
+        uses: garygrossgarten/github-action-ssh@release
         with:
-          hosts: '${{secrets.SSH_USERNAME}}@${{secrets.SSH_HOST}}:${{secrets.SSH_PORT}}'
+          command: ${{secrets.DEPLOY_SCRIPT_PATH}}
+          username: ${{secrets.SSH_USERNAME}}
           privateKey: ${{secrets.SSH_PRIVATE_KEY}}
-          debug: true
-          command: |
-            cd ${{secrets.REMOTE_PATH}}
-            sudo -u www-data git pull
-            sudo supervisorctl restart ${{secrets.SUPERVISOR_PROG_NAME}}
+          host: ${{secrets.SSH_HOST}}
+          port: ${{secrets.SSH_PORT}}
