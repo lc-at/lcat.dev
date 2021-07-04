@@ -15,11 +15,11 @@
             </td>
             <td style="min-width: 50% !important;">{{ log_post.title }}</td>
             <td class="dt-center">
-                <a href="{{ url_for('view_log', log_post_id=log_post.id) }}">view</a>
+                <a href="{{ url_for('home.view_log', log_post_id=log_post.id) }}">view</a>
                 <span class="separator">|</span>
-                <a href="{{ url_for('view_log', log_post_id=log_post.id, view_type='download') }}">download</a>
+                <a href="{{ url_for('home.view_log', log_post_id=log_post.id, view_type='download') }}">download</a>
                 <span class="separator">|</span>
-                <a href="{{ url_for('view_log', log_post_id=log_post.id, view_type='raw') }}">raw</a>
+                <a href="{{ url_for('home.view_log', log_post_id=log_post.id, view_type='raw') }}">raw</a>
                 {% if session.get('authed') %}
                 <span class="separator">|</span>
                 <a href="{{ url_for('admin.edit_log', log_post_id=log_post.id) }}">edit</a>

@@ -1,23 +1,32 @@
-import datetime
+from functools import wraps
 
 from flask import (Blueprint, abort, flash, redirect, render_template, request,
                    session, url_for)
 
-from .models import LogPost, User, db
-from .views import requires_auth
+from ..models import LogPost, User, db
 
 bp = Blueprint('admin', __name__, url_prefix='/administrator')
+
+
+def requires_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if 'authed' not in session:
+            return redirect(url_for('admin.login'))
+        return f(*args, **kwargs)
+
+    return decorated
 
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     if session.get('authed'):
-        return redirect(url_for('root'))
+        return redirect(url_for('home.root'))
     elif request.method == 'POST':
         if User.authenticate(request.form.get('password', '')):
             session['authed'] = True
             flash('Authentication  successful.')
-            return redirect(url_for('root'))
+            return redirect(url_for('home.root'))
         elif request.form.get('password') == 'password':
             flash('No, not this time.')
         else:
@@ -47,7 +56,7 @@ def change_password():
 @requires_auth
 def logout():
     session.pop('authed')
-    return redirect(url_for('root'))
+    return redirect(url_for('home.root'))
 
 
 @bp.route('/write-log', methods=['GET', 'POST'])
@@ -66,7 +75,7 @@ def write_log():
         db.session.commit()
 
         flash('Log post added successfully.')
-        return redirect(url_for('root'))
+        return redirect(url_for('home.root'))
 
     return render_template('admin/write_log.html')
 
@@ -86,7 +95,7 @@ def edit_log(log_post_id):
         log_post.title = title
         log_post.content = content
         log_post.is_markdown = is_markdown
-        log_post.last_updated = datetime.datetime.now()
+        log_post.set_last_updated()
         db.session.commit()
 
         flash(f'Updated log post {log_post.id}.')
@@ -101,4 +110,4 @@ def delete_log(log_post_id):
     db.session.delete(log_post)
     db.session.commit()
     flash(f'Deleted log post {log_post.id}.')
-    return redirect(request.referrer or url_for('root'))
+    return redirect(request.referrer or url_for('home.root'))

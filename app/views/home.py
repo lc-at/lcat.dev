@@ -1,29 +1,18 @@
-from functools import wraps
-
 import marko
-from flask import redirect, render_template, request, session, url_for
+from flask import (Blueprint, render_template, request)
 
-from . import app
-from .models import LogPost
+from ..models import LogPost
 
-
-def requires_auth(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        if 'authed' not in session:
-            return redirect(url_for('admin.login'))
-        return f(*args, **kwargs)
-
-    return decorated
+bp = Blueprint('home', __name__)
 
 
-@app.route('/')
+@bp.route('/')
 def root():
     log_posts = LogPost.query.order_by(LogPost.created.desc()).all()
     return render_template('home.html', log_posts=log_posts)
 
 
-@app.route('/search')
+@bp.route('/search')
 def search():
     keyword = request.args.get('keyword')
     if keyword:
@@ -35,13 +24,13 @@ def search():
     return render_template('search.html')
 
 
-@app.route('/contact')
+@bp.route('/contact')
 def contact():
     return render_template('contact.html')
 
 
-@app.route('/log/<log_post_id>')
-@app.route('/log/<log_post_id>/<view_type>')
+@bp.route('/log/<log_post_id>')
+@bp.route('/log/<log_post_id>/<view_type>')
 def view_log(log_post_id, view_type=None):
     log_post = LogPost.query.filter_by(id=log_post_id).first_or_404()
 
