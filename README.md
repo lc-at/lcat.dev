@@ -4,6 +4,7 @@ This repository contains the source code for my personal website [lcat.dev](http
 ## Installing
 1. `pip install -r requirements.txt`
 2. `cp config.py.template config.py` and adjust `config.py` file accordingly.
+3. Run all migrations: `flask db upgrade`
 
 ## Deploying
 Lcat is Flask-based and runs perfectly (tested) only on Python 3.7.3. 
