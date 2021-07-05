@@ -3,13 +3,13 @@ import os
 from flask import Flask
 
 
-def create_app(config=None):
+def create_app(test_config=None):
     app = Flask(__name__)
 
-    if config is None:
-        app.config.from_pyfile(os.path.join(app.root_path, '..', 'config.py'))
-    else:
-        app.config.from_mapping(config)
+    app.config.from_pyfile(os.path.join(app.root_path, '..', 'config.py'))
+
+    if test_config is not None:
+        app.config.update(test_config)
 
     from .models import db, migrate
     db.init_app(app)
