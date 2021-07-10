@@ -1,3 +1,6 @@
+import marko
+
+
 def test_empty_home(client):
     rv = client.get('/')
     assert b'download' not in rv.data
@@ -19,35 +22,43 @@ def test_home_content(client, log_post, md_log_post):
     assert b'delete' not in rv.data
 
 
-def test_view_formatted_log(client, md_log_post):
-    rv = client.get(f'/log/{md_log_post.id}')
-    assert rv.status_code == 200
+def test_view_md_formatted_log(client, log_post, md_log_post):
+    for p in [log_post, md_log_post]:
+        rv = client.get(f'/log/{p.id}')
+        assert rv.status_code == 200
 
-    assert b'<h1>heading</h1>' in rv.data
+        if p.is_markdown:
+            assert marko.convert(p.content).encode() in rv.data
+        else:
+            assert p.content.encode() in rv.data
 
-    for field in ['id', 'title']:
-        assert getattr(md_log_post, field).encode() in rv.data
+        for field in ['id', 'title']:
+            assert getattr(p, field).encode() in rv.data
 
-    for field in ['created', 'last_updated']:
-        assert getattr(md_log_post, field).isoformat().encode() in rv.data
+        for field in ['created', 'last_updated']:
+            assert getattr(p, field).isoformat().encode() in rv.data
 
 
 def test_view_raw_log(client, md_log_post):
     rv = client.get(f'/log/{md_log_post.id}/raw')
     assert rv.status_code == 200
-    assert rv.headers['Content-Type'] == 'text/plain'
+    assert rv.content_type == 'text/plain'
     assert rv.data == md_log_post.content.encode()
 
 
 def test_download_log(client, log_post):
     rv = client.get(f'/log/{log_post.id}/download')
     assert rv.status_code == 200
-    assert rv.headers['Content-Type'] == 'application/octet-stream'
+    assert rv.content_type == 'application/octet-stream'
     assert log_post.id in rv.headers['Content-Disposition']
     assert rv.data == log_post.content.encode()
 
 
 def test_search_log(client, log_post):
+    rv = client.get('/search')
+    assert rv.status_code == 200
+    assert b'<h3>Search</h3>' in rv.data
+
     keywords = [
         log_post.title,
         log_post.id,

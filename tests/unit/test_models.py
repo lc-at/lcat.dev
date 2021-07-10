@@ -3,9 +3,9 @@ import datetime
 from app.models import LogPost, db
 
 
-def test_create_log_post(log_post):
-    assert log_post.title == 'title'
-    assert log_post.content == 'content'
+def test_create_log_post(log_post, log_post_title, log_post_content):
+    assert log_post.title == log_post_title
+    assert log_post.content == log_post_content
 
     assert type(log_post.id) is str
     assert len(log_post.id) == 36

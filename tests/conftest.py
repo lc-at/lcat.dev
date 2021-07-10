@@ -1,5 +1,6 @@
 import os
 import tempfile
+import time
 
 import pytest
 from app import create_app
@@ -35,37 +36,55 @@ def app_context(app):
 
 
 @pytest.fixture
-def request_context(app_context):
-    with app_context.test_request_context():
-        yield
-
-
-@pytest.fixture
 def client(app_context):
     return app_context.test_client()
 
 
 @pytest.fixture
-def log_post():
-    new_log_post = LogPost('title', 'content', False)
-
-    db.session.add(new_log_post)
-    db.session.commit()
-
-    yield new_log_post
-
-    db.session.delete(new_log_post)
-    db.session.commit()
+def authenticated_client(client):
+    with client.session_transaction() as session:
+        session['authed'] = True
+    return client
 
 
 @pytest.fixture
-def md_log_post():
-    new_log_post = LogPost('title', '# heading', True)
+def log_post_title():
+    return f'titleTITLEaTIELE___{time.time()}'
+
+
+@pytest.fixture
+def log_post_content():
+    return 'contentCONTENT___CONTENT'
+
+
+@pytest.fixture
+def log_post_md_content():
+    return f'# HeadingHEADING___{time.time()}'
+
+
+@pytest.fixture
+def log_post(log_post_title, log_post_content):
+    new_log_post = LogPost(log_post_title, log_post_content, False)
 
     db.session.add(new_log_post)
     db.session.commit()
 
     yield new_log_post
 
-    db.session.delete(new_log_post)
+    if LogPost.query.filter_by(id=new_log_post.id).first():
+        db.session.delete(new_log_post)
+        db.session.commit()
+
+
+@pytest.fixture
+def md_log_post(log_post_title, log_post_md_content):
+    new_log_post = LogPost(log_post_title, log_post_md_content, True)
+
+    db.session.add(new_log_post)
     db.session.commit()
+
+    yield new_log_post
+
+    if LogPost.query.filter_by(id=new_log_post.id).first():
+        db.session.delete(new_log_post)
+        db.session.commit()
