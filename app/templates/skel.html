@@ -35,9 +35,9 @@ instead, see it here: https://github.com/p4kl0nc4t/lcat.dev
         {% endmacro %}
         <nav>
             <ul>
-                <li>{{ nav_link('root', 'Home') }}</li>
-                <li>{{ nav_link('search', 'Search') }}</li>
-                <li>{{ nav_link('contact', 'Contact') }}</li>
+                <li>{{ nav_link('home.root', 'Home') }}</li>
+                <li>{{ nav_link('home.search', 'Search') }}</li>
+                <li>{{ nav_link('home.contact', 'Contact') }}</li>
                 {% if not session.get('authed') %}
                 <li>{{ nav_link('admin.login', 'HackMe') }}</li>
                 {% else %}

@@ -1,15 +1,23 @@
 import os
 
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
 
-app.config.from_pyfile(os.path.join(app.root_path, '..', 'config.py'))
+def create_app(test_config=None):
+    app = Flask(__name__)
 
-db = SQLAlchemy(app)
+    app.config.from_pyfile(os.path.join(app.root_path, '..', 'config.py'))
 
-from .views import *  # noqa
-from .admin import bp as admin_bp  # noqa
+    if test_config is not None:
+        app.config.update(test_config)
 
-app.register_blueprint(admin_bp)
+    from .models import db, migrate
+    db.init_app(app)
+    migrate.init_app(app, db)
+
+    from .views import admin, home
+
+    app.register_blueprint(admin.bp)
+    app.register_blueprint(home.bp)
+
+    return app
