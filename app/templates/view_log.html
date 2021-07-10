@@ -2,8 +2,7 @@
 {% block title %}{{ log_post.title }}{% endblock %}
 {% block article %}
 <section>
-    <h2>{{ log_post.title }}</h2>
-    <br>
+    <h2 class="log-title">{{ log_post.title }}</h2>
     <div class="log-content log-box">
         {% if log_post.is_markdown %}
         {{ processed_content|safe }}
