@@ -24,6 +24,9 @@ jobs:
       - name: Linting
         run: pip install flake8
       
+      - name: Copy default config file
+        run: cp config.py.template config.py
+      
       - name: Testing
         run: python -m pytest
         
