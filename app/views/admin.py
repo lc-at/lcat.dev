@@ -25,7 +25,7 @@ def login():
     elif request.method == 'POST':
         if User.authenticate(request.form.get('password', '')):
             session['authed'] = True
-            flash('Authentication  successful.')
+            flash('Authentication successful.')
             return redirect(url_for('home.root'))
         elif request.form.get('password') == 'password':
             flash('No, not this time.')
