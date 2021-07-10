@@ -5,3 +5,4 @@ venv_dev
 .vscode
 config.py
 lcat.passwd
+.coverage
