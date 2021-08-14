@@ -78,3 +78,10 @@ textarea.wide {
 h2.log-title {
     margin-bottom: 0.5em;
 }
+
+.log-content>p img, .log-content>p picture {
+    float: none;
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+}
