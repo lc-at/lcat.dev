@@ -18,6 +18,7 @@ Mako==1.1.4
 marko==1.0.3
 MarkupSafe==2.0.1
 packaging==20.9
+passlib==1.7.4
 pluggy==0.13.1
 py==1.10.0
 pycosat==0.6.3
