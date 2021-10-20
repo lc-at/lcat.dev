@@ -1,10 +1,10 @@
 import uuid
 from datetime import datetime
-from hashlib import sha512
 
 from flask import current_app
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from passlib.hash import pbkdf2_sha512
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -36,11 +36,10 @@ class User:
         cred_file = current_app.config['CRED_FILE']
         try:
             with open(cred_file) as f:
-                password_r = f.read()
-                if len(password_r) != 128:  # sha512 hash length is 128
+                password_hash = f.read()
+                if len(password_hash) != 130:  # pbkdf2_sha512
                     raise ValueError
-                password_i = sha512(password.encode()).hexdigest()
-                if password_r == password_i:
+                elif pbkdf2_sha512.verify(password, password_hash):
                     return True
         except (FileNotFoundError, ValueError):
             default_password = 'password'
@@ -55,5 +54,5 @@ class User:
             return False
         cred_file = current_app.config['CRED_FILE']
         with open(cred_file, 'w') as f:
-            f.write(sha512(new_password.encode()).hexdigest())
+            f.write(pbkdf2_sha512.hash(new_password))
         return True
