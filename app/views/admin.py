@@ -66,11 +66,12 @@ def write_log():
         title = request.form.get('title')
         content = request.form.get('content')
         is_markdown = request.form.get('is_md') is not None
+        is_pinned = request.form.get('is_pinned') is not None
 
         if not (title and content):
             abort(403)
 
-        log = LogPost(title, content, is_markdown)
+        log = LogPost(title, content, is_markdown, is_pinned)
         db.session.add(log)
         db.session.commit()
 
@@ -88,6 +89,7 @@ def edit_log(log_post_id):
         title = request.form.get('title')
         content = request.form.get('content')
         is_markdown = request.form.get('is_md') is not None
+        is_pinned = request.form.get('is_pinned') is not None
 
         if not (title and content):
             abort(403)
@@ -95,6 +97,7 @@ def edit_log(log_post_id):
         log_post.title = title
         log_post.content = content
         log_post.is_markdown = is_markdown
+        log_post.is_pinned = is_pinned
         log_post.set_last_updated()
         db.session.commit()
 
