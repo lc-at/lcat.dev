@@ -47,7 +47,7 @@ def authenticated_client(client):
     return client
 
 
-@pytest.fixture
+@pytest.fixture()
 def log_post_title():
     return f'titleTITLEaTIELE___{time.time()}'
 
@@ -79,6 +79,21 @@ def log_post(log_post_title, log_post_content):
 @pytest.fixture
 def md_log_post(log_post_title, log_post_md_content):
     new_log_post = LogPost(log_post_title, log_post_md_content, True)
+
+    db.session.add(new_log_post)
+    db.session.commit()
+
+    yield new_log_post
+
+    if LogPost.query.filter_by(id=new_log_post.id).first():
+        db.session.delete(new_log_post)
+        db.session.commit()
+
+
+@pytest.fixture
+def pinned_log_post(log_post_title, log_post_content):
+    new_log_post = LogPost(log_post_title, log_post_content, False)
+    new_log_post.is_pinned = True
 
     db.session.add(new_log_post)
     db.session.commit()
