@@ -16,6 +16,7 @@ def test_create_log_post(log_post, log_post_title, log_post_content):
         == log_post.last_updated.isocalendar()
 
     assert log_post.is_markdown is False
+    assert log_post.is_pinned is False
 
 
 def test_edit_log_post_last_updated(log_post):
