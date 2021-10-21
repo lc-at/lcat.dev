@@ -19,12 +19,14 @@ class LogPost(db.Model):
     title = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=True)
     is_markdown = db.Column(db.Boolean, nullable=True)
+    is_pinned = db.Column(db.Boolean, nullable=True)
 
-    def __init__(self, title, content, is_markdown=True):
+    def __init__(self, title, content, is_markdown=True, is_pinned=False):
         self.id = str(uuid.uuid4())
         self.title = title
         self.content = content
         self.is_markdown = is_markdown
+        self.is_pinned = is_pinned
 
     def set_last_updated(self):
         self.last_updated = datetime.utcnow()
