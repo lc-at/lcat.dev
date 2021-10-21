@@ -7,16 +7,23 @@ def test_empty_home(client):
     assert rv.status_code == 200
 
 
-def test_home_content(client, log_post, md_log_post):
+def test_home_content(client, log_post, md_log_post, pinned_log_post):
     rv = client.get('/')
     assert rv.status_code == 200
 
-    for p in [log_post, md_log_post]:
+    for p in [log_post, md_log_post, pinned_log_post]:
         assert p.title.encode() in rv.data
         assert p.created.isoformat().encode() in rv.data
 
     for link_text in [b'download', b'view', b'raw']:
         assert link_text in rv.data
+
+    assert rv.data.find(pinned_log_post.id.encode()) < rv.data.find(
+        log_post.id.encode())
+    assert rv.data.find(pinned_log_post.id.encode()) < rv.data.find(
+        md_log_post.id.encode())
+    assert rv.data.find(md_log_post.id.encode()) < rv.data.find(
+        log_post.id.encode())
 
     assert b'edit' not in rv.data
     assert b'delete' not in rv.data
