@@ -8,7 +8,8 @@ bp = Blueprint('home', __name__)
 
 @bp.route('/')
 def root():
-    log_posts = LogPost.query.order_by(LogPost.created.desc()).all()
+    log_posts = LogPost.query.order_by(LogPost.is_pinned.desc(),
+                                       LogPost.created.desc()).all()
     return render_template('home.html', log_posts=log_posts)
 
 
