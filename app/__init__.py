@@ -20,4 +20,7 @@ def create_app(test_config=None):
     app.register_blueprint(admin.bp)
     app.register_blueprint(home.bp)
 
+    from .utils import filters
+    app.add_template_filter(filters.md_to_html, 'md_to_html')
+
     return app
