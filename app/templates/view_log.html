@@ -2,12 +2,12 @@
 {% block title %}{{ log_post.title }}{% endblock %}
 {% block article %}
 <section>
-    <h2 class="log-title">{{ log_post.title }}</h2>
+    <h2 class="log-title">{{ log_post.title|md_to_html }}</h2>
     <div class="log-content log-box">
         {% if log_post.is_markdown %}
-        {{ processed_content|safe }}
+        {{ content|md_to_html }}
         {% else %}
-        <pre class="non-markdown-content">{{ processed_content }}</pre>
+        <pre class="non-markdown-content">{{ content }}</pre>
         {% endif %}
     </div>
     <small>

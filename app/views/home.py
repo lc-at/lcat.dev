@@ -43,11 +43,6 @@ def view_log(log_post_id, view_type=None):
     elif view_type == 'raw':
         return log_post.content, {'Content-Type': 'text/plain'}
 
-    processed_content = log_post.content
-
-    if log_post.is_markdown:
-        processed_content = marko.convert(log_post.content)
-
     return render_template('view_log.html',
                            log_post=log_post,
-                           processed_content=processed_content)
+                           content=log_post.content)
