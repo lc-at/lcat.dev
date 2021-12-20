@@ -12,6 +12,11 @@
     width: auto !important;
 }
 
+#logTable > * p, .log-title > p {
+    display: inline !important;
+    margin: 0 !important;
+}
+
 .log-box {
     border: 1px dotted black;
     padding: 0.8rem !important;
