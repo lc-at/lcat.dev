@@ -7,9 +7,20 @@ def test_empty_home(client):
     assert rv.status_code == 200
 
 
+def test_authenticated_home_content(app, authenticated_client, log_post,
+                                    md_log_post):
+    app.config['MAX_PUBLIC_POSTS'] = 1
+
+    rv = authenticated_client.get('/')
+    assert rv.status_code == 200
+    assert rv.data.count(b'">view') > 1
+
+    app.config['MAX_PUBLIC_POSTS'] = None
+
+
 def test_home_content(app, client, log_post, md_log_post, pinned_log_post):
     app.config['MAX_PUBLIC_POSTS'] = 1
-    
+
     rv = client.get('/')
     assert rv.status_code == 200
     assert rv.data.count(b'">view') == 1
@@ -93,7 +104,7 @@ def test_search_log(app, client, log_post, pinned_log_post):
         assert rv.status_code == 200
         assert keyword.encode() in rv.data
 
-    app.config['MAX_PUBLIC_POSTS'] = 0 
+    app.config['MAX_PUBLIC_POSTS'] = 0
     rv = client.get(f'/search?keyword={pinned_log_post.title}')
     assert rv.status_code == 200
     assert rv.data.count(b'">view') == 0
