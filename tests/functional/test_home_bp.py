@@ -7,7 +7,15 @@ def test_empty_home(client):
     assert rv.status_code == 200
 
 
-def test_home_content(client, log_post, md_log_post, pinned_log_post):
+def test_home_content(app, client, log_post, md_log_post, pinned_log_post):
+    app.config['MAX_PUBLIC_POSTS'] = 1
+    
+    rv = client.get('/')
+    assert rv.status_code == 200
+    assert rv.data.count(b'">view') == 1
+
+    app.config['MAX_PUBLIC_POSTS'] = None
+
     rv = client.get('/')
     assert rv.status_code == 200
 
@@ -61,10 +69,14 @@ def test_download_log(client, log_post):
     assert rv.data == log_post.content.encode()
 
 
-def test_search_log(client, log_post):
+def test_search_log(app, client, log_post, pinned_log_post):
     rv = client.get('/search')
     assert rv.status_code == 200
     assert b'<h3>Search</h3>' in rv.data
+
+    rv = client.get('/search?keyword=a')
+    assert rv.status_code == 200
+    assert b'Search result' not in rv.data
 
     keywords = [
         log_post.title,
@@ -80,6 +92,12 @@ def test_search_log(client, log_post):
         rv = client.get(f'/search?keyword={keyword}')
         assert rv.status_code == 200
         assert keyword.encode() in rv.data
+
+    app.config['MAX_PUBLIC_POSTS'] = 0 
+    rv = client.get(f'/search?keyword={pinned_log_post.title}')
+    assert rv.status_code == 200
+    assert rv.data.count(b'">view') == 0
+    app.config['MAX_PUBLIC_POSTS'] = None
 
     rv = client.get('/search?keyword=nothing')
     assert rv.status_code == 200

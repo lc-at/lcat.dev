@@ -1,5 +1,5 @@
 import marko
-from flask import (Blueprint, render_template, request)
+from flask import (Blueprint, render_template, request, current_app)
 
 from ..models import LogPost
 
@@ -8,19 +8,21 @@ bp = Blueprint('home', __name__)
 
 @bp.route('/')
 def root():
-    log_posts = LogPost.query.order_by(LogPost.is_pinned.desc(),
-                                       LogPost.created.desc()).all()
+    log_posts = LogPost.query.order_by(
+        LogPost.is_pinned.desc(), LogPost.created.desc()).limit(
+            current_app.config.get('MAX_PUBLIC_POSTS')).all()
     return render_template('home.html', log_posts=log_posts)
 
 
 @bp.route('/search')
 def search():
     keyword = request.args.get('keyword')
-    if keyword:
+    if keyword and len(keyword) >= 5:
         log_posts = LogPost.query.filter(
             (LogPost.title.ilike(f'%{keyword}%'))
             | (LogPost.content.ilike(f'%{keyword}%'))
-            | (LogPost.id == keyword)).order_by(LogPost.created.desc()).all()
+            | (LogPost.id == keyword)).order_by(LogPost.created.desc()).limit(
+                current_app.config.get('MAX_PUBLIC_POSTS')).all()
         return render_template('search.html', log_posts=log_posts, search=True)
     return render_template('search.html')
 
