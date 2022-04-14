@@ -22,5 +22,6 @@ def create_app(test_config=None):
 
     from .utils import filters
     app.add_template_filter(filters.md_to_html, 'md_to_html')
+    app.add_template_filter(filters.log_id_autoref, 'log_id_autoref')
 
     return app
