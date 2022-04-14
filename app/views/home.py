@@ -1,5 +1,4 @@
-import marko
-from flask import (Blueprint, render_template, request, current_app)
+from flask import Blueprint, current_app, render_template, request, session
 
 from ..models import LogPost
 
@@ -8,9 +7,11 @@ bp = Blueprint('home', __name__)
 
 @bp.route('/')
 def root():
+    limit = current_app.config.get('MAX_PUBLIC_POSTS')
+    if 'authed' in session:
+        limit = None
     log_posts = LogPost.query.order_by(
-        LogPost.is_pinned.desc(), LogPost.created.desc()).limit(
-            current_app.config.get('MAX_PUBLIC_POSTS')).all()
+        LogPost.is_pinned.desc(), LogPost.created.desc()).limit(limit).all()
     return render_template('home.html', log_posts=log_posts)
 
 
