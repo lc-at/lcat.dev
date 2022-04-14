@@ -13,3 +13,4 @@ SQLALCHEMY_DATABASE_URI = ''.join([
     'lcat',  # database name
 ])
 CRED_FILE = 'lcat.passwd'
+MAX_PUBLIC_POSTS = 20  # can be None
