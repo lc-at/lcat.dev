@@ -2,7 +2,8 @@
 {% block title %}{{ log_post.title }}{% endblock %}
 {% block article %}
 <section>
-    <h2 class="log-title">{{ log_post.title|md_to_html }}</h2>
+    {% set content = content|log_id_autoref %}
+    <h2 class="log-title">{{ log_post.title|log_id_autoref|md_to_html }}</h2>
     <div class="log-content log-box">
         {% if log_post.is_markdown %}
         {{ content|md_to_html }}
