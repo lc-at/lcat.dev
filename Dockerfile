@@ -5,6 +5,7 @@ RUN mkdir /lkat
 WORKDIR /lkat
 
 COPY . /lkat
+COPY config.py.template /lkat/config.py
 
 RUN chown daemon /lkat
 RUN chmod 705 /lkat 
