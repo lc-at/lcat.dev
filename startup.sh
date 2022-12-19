@@ -1,0 +1,1 @@
+gunicorn -b :7211 wsgi:app

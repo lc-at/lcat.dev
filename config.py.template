@@ -1,16 +1,26 @@
-CONTACT_ENTRIES = [
-    # Name, url, display text
-    ('GitHub', 'https://github.com/p4kl0nc4t'),
-    ('Telegram', 'https://t.me/p4kl0nc4t'),
-    ('Email', 'mailto:contact@lcat.dev', 'contact@lcat.dev')
-]
+import os
 
-SECRET_KEY = 'uikjf,n34 cewi4jk3m,ewajkm,nqc .f43ew '
-SQLALCHEMY_TRACK_MODIFICATIONS = True
-SQLALCHEMY_DATABASE_URI = ''.join([
-    'mysql+pymysql://',  # database type and connector
-    'cat@localhost/',  # username, password, and host
-    'lcat',  # database name
-])
-CRED_FILE = 'lcat.passwd'
-MAX_PUBLIC_POSTS = 20  # can be None
+if os.getenv("DOCKER_DEPLOY") == True:
+    CONTACT_ENTRIES = os.getenv("CONTACT_ENTRIES")
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
+    SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv("SQLALCHEMY_TRACK_MODIFICATIONS")
+    CRED_FILE = os.getenv("CRED_FILE")
+    MAX_PUBLIC_POSTS = os.getenv("MAX_PUBLIC_POSTS")
+else:
+    CONTACT_ENTRIES = [
+        # Name, url, display text
+        ('GitHub', 'https://github.com/p4kl0nc4t'),
+        ('Telegram', 'https://t.me/p4kl0nc4t'),
+        ('Email', 'mailto:contact@lcat.dev', 'contact@lcat.dev')
+    ]
+
+    SECRET_KEY = 'uikjf,n34 cewi4jk3m,ewajkm,nqc .f43ew '
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SQLALCHEMY_DATABASE_URI = ''.join([
+        'mysql+pymysql://',  # database type and connector
+        'cat@localhost/',  # username, password, and host
+        'lcat',  # database name
+    ])
+    CRED_FILE = 'lcat.passwd'
+    MAX_PUBLIC_POSTS = 20  # can be None
