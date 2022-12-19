@@ -1,0 +1,33 @@
+version: '3.4'
+services:
+  nginx:
+    image: nginx
+    depends_on:
+    - site
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.DaemonName}}(image={{.ImageName}};name{{.Name}};id={{.ID}})"
+    networks:
+      - frontend
+    ports:
+    - '7211:80'
+    restart: on-failure
+    volumes:
+    - ${PWD}/nginx:/etc/nginx/conf.d:ro
+    - ${PWD}/site:/var/www/html:ro
+
+  site:
+    image: tupperward/lcat
+    depends_on:
+      - mariadb
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
+    networks:
+      - frontend
+      - backend
+  
+  mariadb:
+    image: mariadb:10.2

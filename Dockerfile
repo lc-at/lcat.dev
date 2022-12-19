@@ -1,14 +1,14 @@
 FROM python:3.7.3
 
-RUN mkdir /lkat 
+RUN mkdir /lcat 
 
-WORKDIR /lkat
+WORKDIR /lcat
 
-COPY . /lkat
-COPY config.py.template /lkat/config.py
+COPY . /lcat
+COPY config.py.template /lcat/config.py
 
-RUN chown daemon /lkat
-RUN chmod 705 /lkat 
+RUN chown daemon /lcat
+RUN chmod 705 /lcat 
 RUN pip install -r requirements.txt
 ENV DOCKER_DEPLOY=True
 
