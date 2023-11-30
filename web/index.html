@@ -12,7 +12,7 @@
 
       body {
         font-family: monospace;
-        margin:1.5em;
+        margin:1em;
         font-size:1rem;
       }
 
@@ -24,8 +24,7 @@
 
       @media (min-width: 40rem){
         body {
-          font-size: 1.125rem;
-          padding: 0rem 20%;
+          padding: 0rem 10%;
         }
       }
 
@@ -76,25 +75,23 @@
     </nav>
 
     <main>
-      <h4>2023-11</h4>
-      <ol>
-        <li><a href="#">Hello world!</a></li>
-        <li><a href="#">Hello world!</a></li>
-      </ol>
+      <table style="width:100%">
+        <tr>
+          <th>Timestamp</th>
+          <th>Title</th>
+        </tr>
+        {{ range . }}
+        <tr>
+          <td>{{ .CreatedAt }}</td>
+          <td>
+            <a href="/{{ .Id }}">
+              {{ if .IsPinned }}[📌]{{ end }}
 
-      <h4>2023-08</h4>
-      <ol>
-        <li><a href="#">Hello world!</a></li>
-        <li><a href="#">Hello world!</a></li>
-      </ol>
-  
-      <form method="get">
-        <label>limit:</label>
-        <input type="number" style="width: 3em" name="limit">
-        <label>offset:</label>
-        <input type="number" style="width: 3em" name="limit">
-        <button type="submit">submit</button>
-      </form>
+              {{ .Title }}
+            </a>
+          </td>
+        </tr>
+        {{ end }}
     </main>
   </body>
 </html>

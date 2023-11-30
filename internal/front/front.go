@@ -4,17 +4,17 @@ import (
 	"net/http"
 
 	"codeberg.org/fj/lcat.dev/internal/logpost"
-	"codeberg.org/fj/lcat.dev/internal/templates"
+	"codeberg.org/fj/lcat.dev/internal/views"
 )
 
 type Handler struct {
-	tm             *templates.Manager
+	viewsManager   *views.Manager
 	logpostManager *logpost.Manager
 }
 
-func New(tm *templates.Manager, logpostManager *logpost.Manager) *Handler {
+func New(viewsManager *views.Manager, logpostManager *logpost.Manager) *Handler {
 	return &Handler{
-		tm:             tm,
+		viewsManager:   viewsManager,
 		logpostManager: logpostManager,
 	}
 }
@@ -24,5 +24,11 @@ func (h *Handler) Register(mux *http.ServeMux) {
 }
 
 func (h *Handler) index(w http.ResponseWriter, r *http.Request) {
-	h.tm.Get(templates.Index).Execute(w, nil)
+	logposts, err := h.logpostManager.GetAllPinnedFirst(20, 0)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	h.viewsManager.Get(views.Index).Execute(w, logposts)
 }

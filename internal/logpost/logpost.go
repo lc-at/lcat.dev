@@ -3,12 +3,13 @@ package logpost
 import "database/sql"
 
 type Model struct {
-	id         int
-	title      string
-	pinned     bool
-	content    string
-	created_at string
-	updated_at string
+	Id         string
+	Title      string
+	Content    string
+	IsPinned   bool
+	IsMarkdown bool
+	CreatedAt  string
+	UpdatedAt  string
 }
 
 type Manager struct {
@@ -19,8 +20,11 @@ func NewManager(db *sql.DB) *Manager {
 	return &Manager{db: db}
 }
 
-func (m *Manager) GetAll() (posts []Model, err error) {
-	rows, err := m.db.Query("SELECT * FROM log_posts")
+func (m *Manager) GetAllPinnedFirst(limit, offset int) (posts []Model, err error) {
+	rows, err := m.db.Query(`SELECT id, title, content, COALESCE(is_pinned, FALSE), is_markdown, created, last_updated
+                                 FROM log_post 
+                                 ORDER BY is_pinned DESC, created DESC
+                                 LIMIT ? OFFSET ?`, limit, offset)
 	if err != nil {
 		panic(err)
 	}
@@ -28,7 +32,7 @@ func (m *Manager) GetAll() (posts []Model, err error) {
 
 	for rows.Next() {
 		var post Model
-		err := rows.Scan(&post.id, &post.title, &post.pinned, &post.content, &post.created_at, &post.updated_at)
+		err := rows.Scan(&post.Id, &post.Title, &post.Content, &post.IsPinned, &post.IsMarkdown, &post.CreatedAt, &post.UpdatedAt)
 		if err != nil {
 			panic(err)
 		}
