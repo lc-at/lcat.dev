@@ -1,4 +1,4 @@
-package logpost
+package posts
 
 import "database/sql"
 
@@ -32,12 +32,22 @@ func (m *Manager) GetAllPinnedFirst(limit, offset int) (posts []Model, err error
 
 	for rows.Next() {
 		var post Model
-		err := rows.Scan(&post.Id, &post.Title, &post.Content, &post.IsPinned, &post.IsMarkdown, &post.CreatedAt, &post.UpdatedAt)
+		err := rows.Scan(&post.Id, &post.Title, &post.Content, &post.IsPinned,
+			&post.IsMarkdown, &post.CreatedAt, &post.UpdatedAt)
 		if err != nil {
 			panic(err)
 		}
 		posts = append(posts, post)
 	}
 
+	return
+}
+
+func (m *Manager) GetById(id string) (post Model, err error) {
+	err = m.db.QueryRow(`SELECT id, title, content, COALESCE(is_pinned, FALSE), is_markdown, created, last_updated
+                             FROM log_post 
+                             WHERE id = ?`, id).Scan(&post.Id, &post.Title,
+		&post.Content, &post.IsPinned, &post.IsMarkdown,
+		&post.CreatedAt, &post.UpdatedAt)
 	return
 }

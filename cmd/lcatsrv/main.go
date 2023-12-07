@@ -20,5 +20,5 @@ func main() {
 
 	log.Println("Listening on address", config.ListenAddr)
 
-	log.Fatalln("Error starting server:", app.ListenAndServe())
+	log.Fatalln("Error starting server:", app.Run())
 }

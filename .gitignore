@@ -6,3 +6,6 @@ venv_dev
 config.py
 lcat.passwd
 .coverage
+node_modules/
+.mypy_cache/
+bin/

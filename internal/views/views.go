@@ -6,6 +6,7 @@ import (
 )
 
 const Index = "index"
+const ViewPost = "view_post"
 
 type Manager struct {
 	templates     map[string]*template.Template
@@ -27,7 +28,12 @@ func (t *Manager) templateFilename(filename string) string {
 }
 
 func (t *Manager) compile() {
-	t.templates[Index] = template.Must(template.ParseFiles(t.templateFilename("index.html")))
+	t.templates[Index] = template.Must(template.ParseFiles(
+		t.templateFilename("base.html"),
+		t.templateFilename("index.html")))
+	t.templates[ViewPost] = template.Must(template.ParseFiles(
+		t.templateFilename("base.html"),
+		t.templateFilename("view_post.html")))
 }
 
 func (t *Manager) Get(name string) *template.Template {

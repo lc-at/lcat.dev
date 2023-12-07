@@ -1,0 +1,16 @@
+{{define "title"}}{{.Title}}{{end}} {{define "content"}}
+<h1>{{.Title}}</h1>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", (event) => {
+    document.getElementById("content").innerHTML = marked.parse(
+      document.getElementById("content").innerHTML
+    );
+  });
+</script>
+<div class="post-content" id="content">{{.Content}}</div>
+<small class="post-metadata">
+  Created: {{.CreatedAt}}, Updated: {{.UpdatedAt}}, ID: {{.Id}}
+</small>
+{{end}}

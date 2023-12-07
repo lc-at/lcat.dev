@@ -1,97 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>lcat &mdash; Home</title>
+{{define "title"}}Home{{end}} {{define "content"}}
+<table style="width: 100%">
+  <tr>
+    <th class="timestamp">Timestamp</th>
+    <th>Title</th>
+  </tr>
+  {{range .}}
+  <tr>
+    <td>{{.CreatedAt}}</td>
+    <td>
+      <a href="/{{.Id}}"> {{if .IsPinned}}[📌]{{end}} {{.Title}} </a>
+    </td>
+  </tr>
+  {{end}}
+</table>
 
-    <style>
-      html {
-        background-color: Ivory;
-      }
-
-      body {
-        font-family: monospace;
-        margin:1em;
-        font-size:1rem;
-      }
-
-      @media (max-width: 20rem){
-        body {
-          font-size: calc(1rem + 0.00625 * (100vw - 20rem));
-        }
-      }
-
-      @media (min-width: 40rem){
-        body {
-          padding: 0rem 10%;
-        }
-      }
-
-      a {
-        color: Indigo;
-        text-decoration: none;
-      }
-      
-      a:hover {
-        text-decoration: underline dotted;
-      }
-
-      header > h1 {
-        margin-bottom: 0.05rem;
-      }
-
-      nav {
-        padding: 1.5rem 0rem;
-        display: flex;
-      }
-
-      nav > a {
-        margin-right: 1.2rem;
-        font-size: 1.1em;
-      }
-
-      nav > ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: space-between;
-        gap: 1.3rem;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>&lt;cat</h1>
-      <small>My personal <code>/var/log</code></small>
-    </header>
-
-    <nav>
-      <ul>
-        <li>Home</li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Search</a></li>
-    </nav>
-
-    <main>
-      <table style="width:100%">
-        <tr>
-          <th>Timestamp</th>
-          <th>Title</th>
-        </tr>
-        {{ range . }}
-        <tr>
-          <td>{{ .CreatedAt }}</td>
-          <td>
-            <a href="/{{ .Id }}">
-              {{ if .IsPinned }}[📌]{{ end }}
-
-              {{ .Title }}
-            </a>
-          </td>
-        </tr>
-        {{ end }}
-    </main>
-  </body>
-</html>
+<form>
+  <label>limit: </label>
+  <input type="number" name="limit" style="width: 4ch" />
+  <label>offset: </label>
+  <input type="number" name="offset" style="width: 4ch" />
+  <input type="submit" value="go!" />
+</form>
+{{end}}

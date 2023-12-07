@@ -4,10 +4,11 @@ import (
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
 	"net/http"
+	"net/http/cgi"
 
 	"codeberg.org/fj/lcat.dev/internal/config"
 	"codeberg.org/fj/lcat.dev/internal/front"
-	"codeberg.org/fj/lcat.dev/internal/logpost"
+	"codeberg.org/fj/lcat.dev/internal/posts"
 	"codeberg.org/fj/lcat.dev/internal/views"
 )
 
@@ -27,15 +28,18 @@ func New(config *config.Config) (app *App, err error) {
 		return
 	}
 
-	logpostManager := logpost.NewManager(db)
-	templateManager := views.NewManager(config.TemplatesDir, config.Debug)
+	postsManager := posts.NewManager(db)
+	viewsManager := views.NewManager(config.TemplatesDir, config.Debug)
 
-	frontHandler := front.New(templateManager, logpostManager)
+	frontHandler := front.New(viewsManager, postsManager)
 	frontHandler.Register(app.mux)
 
 	return
 }
 
-func (app *App) ListenAndServe() error {
+func (app *App) Run() error {
+	if app.config.ListenAddr == "cgi" {
+		return cgi.Serve(app.mux)
+	}
 	return http.ListenAndServe(app.config.ListenAddr, app.mux)
 }
