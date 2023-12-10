@@ -1,10 +1,18 @@
 # lcat.dev
 
 This repository contains the source code for my personal website
-[lcat.dev](https://lcat.dev).
+[lcat.dev](https://lcat.dev). Rewritten in PHP for easier deployment anywhere.
 
-This v2 of my website will be built with Go just so I can learn more about the
-language.
+## Requirements
+
+-   PHP 8.1 or higher
+-   SQLite module
+
+## Deployment
+
+Copy the `config.example.php` file to `config.php` and edit it to your needs.
+Then, run the `docs/schema.sql` file on your SQLite database. Finally, just copy
+everything to your web server and you're good to go.
 
 ## License
 
