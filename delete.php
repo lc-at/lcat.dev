@@ -2,6 +2,7 @@
 define('BASEPATH', __DIR__);
 
 require_once 'transactions.php';
+require_once 'templating.php';
 require_once 'urls.php';
 
 $id = $_GET['id'] ?? '';

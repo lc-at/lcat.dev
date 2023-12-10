@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($title) || empty($content)) {
         flash('Title and content are required');
     } else {
-        $newPostId = createPost($content, $title, $isPinned);
+        $newPostId = createPost($title, $content, $isPinned);
         flash('Post created');
 
         redirect(getPostViewURL($newPostId));
