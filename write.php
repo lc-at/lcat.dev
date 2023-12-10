@@ -4,6 +4,9 @@ define('BASEPATH', __DIR__);
 require_once 'templating.php';
 require_once 'transactions.php';
 require_once 'urls.php';
+require_once 'auth.php';
+
+requireLogin();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'] ?? '';

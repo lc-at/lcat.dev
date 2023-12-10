@@ -103,6 +103,11 @@
             border: 1px solid #282828;
             padding: 0.5rem;
             word-wrap: break-word;
+            overflow-x: auto;
+        }
+
+        img {
+            max-width: 100%;
         }
 
         p {
@@ -157,17 +162,18 @@
 </head>
 
 <body>
-    <header>
-        <div>
-            <marquee style="width: 0.1ch">
-                ggO^[&lt;80&gt;&lt;fd&gt;a:!&lt;80&gt;kbr!figlet -f small
-                &lt;80&gt;kb&lt;80&gt;kb&lt;80&gt;kb&lt;80&gt;kb&lt;80&gt;kb&lt;80&gt;kbmini
-                no_34st3r_399_h3r3_get_your_w&lt;80&gt;kbew&lt;80&gt;kb&lt;80&gt;kbreward_email_me^Mggd8j</marquee><strong><span class="lcat-l-letter">l</span>cat</strong>
-        </div>
-        <small>My personal <code>/var/log</code></small>
-    </header>
 
     <nav class="navbar">
+        <header>
+            <div>
+                <marquee style="width: 0.1ch">
+                    ggO^[&lt;80&gt;&lt;fd&gt;a:!&lt;80&gt;kbr!figlet -f small
+                    &lt;80&gt;kb&lt;80&gt;kb&lt;80&gt;kb&lt;80&gt;kb&lt;80&gt;kb&lt;80&gt;kbmini
+                    no_34st3r_399_h3r3_get_your_w&lt;80&gt;kbew&lt;80&gt;kb&lt;80&gt;kbreward_email_me^Mggd8j</marquee><strong><span class="lcat-l-letter">l</span>cat</strong>
+            </div>
+            <small>My personal <code>/var/log</code></small>
+        </header>
+
         <?php
         function activeIfEqual($a, $b)
         {

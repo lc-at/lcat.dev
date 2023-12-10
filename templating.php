@@ -4,7 +4,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 require_once 'urls.php';
 require_once 'auth.php';
 
-if (!$_SESSION) {
+if (!isset($_SESSION)) {
     session_start();
 }
 

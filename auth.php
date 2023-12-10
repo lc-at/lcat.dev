@@ -40,3 +40,11 @@ function isLoggedIn()
         return false;
     }
 }
+
+function requireLogin()
+{
+    if (!isLoggedIn()) {
+        redirect(getLoginURL());
+        exit();
+    }
+}
