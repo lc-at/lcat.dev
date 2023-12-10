@@ -13,7 +13,6 @@
         }
 
         body {
-            font-family: "Fantasque Sans Mono", monospace;
             color: #3c3836;
             margin: 1em;
             margin-top: 2em;
@@ -22,8 +21,14 @@
 
         pre,
         code {
-            font-family: "Fantasque Sans Mono", monospace;
             color: #af3a03;
+            overflow-x: auto;
+        }
+
+        body,
+        pre,
+        code {
+            font-family: "Fantasque Sans Mono", monospace;
         }
 
         @media (max-width: 20rem) {
@@ -56,6 +61,10 @@
             text-decoration: underline dotted;
         }
 
+        a.active {
+            text-decoration: underline;
+        }
+
         header>h1 {
             margin-bottom: 0.05rem;
         }
@@ -85,6 +94,11 @@
             border: 1px solid #282828;
         }
 
+        th {
+            background-color: #8f3f71;
+            color: #fbf1c7;
+        }
+
         .post-content {
             border: 1px solid #282828;
             padding: 0.5rem;
@@ -103,6 +117,42 @@
             font-size: small;
             color: #928374;
         }
+
+        .messages {
+            border: 1px solid #282828;
+            background-color: #ebdbb2;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .lcat-l-letter {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0% {
+                color: #fbf1c7;
+                background-color: #282828;
+            }
+
+            50% {
+                color: #282828;
+                background-color: #fbf1c7;
+            }
+
+            100% {
+                color: #fbf1c7;
+                background-color: #282828;
+            }
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
     </style>
 </head>
 
@@ -112,20 +162,46 @@
             <marquee style="width: 0.1ch">
                 ggO^[&lt;80&gt;&lt;fd&gt;a:!&lt;80&gt;kbr!figlet -f small
                 &lt;80&gt;kb&lt;80&gt;kb&lt;80&gt;kb&lt;80&gt;kb&lt;80&gt;kb&lt;80&gt;kbmini
-                no_34st3r_399_h3r3_get_your_w&lt;80&gt;kbew&lt;80&gt;kb&lt;80&gt;kbreward_email_me^Mggd8j</marquee><strong><span style="background-color: #282828; color: #fbf1c7">l</span>cat</strong>
+                no_34st3r_399_h3r3_get_your_w&lt;80&gt;kbew&lt;80&gt;kb&lt;80&gt;kbreward_email_me^Mggd8j</marquee><strong><span class="lcat-l-letter">l</span>cat</strong>
         </div>
         <small>My personal <code>/var/log</code></small>
     </header>
 
-    <nav>
+    <nav class="navbar">
+        <?php
+        function activeIfEqual($a, $b)
+        {
+            return $a == $b ? 'active' : '';
+        }
+        ?>
+
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Search</a></li>
+            <li><a href="<?= getHomeURL() ?>" class="<?= activeIfEqual($title, 'Home') ?>">Home</a></li>
+            <li><a href="<?= getContactURL() ?>" class="<?= activeIfEqual($title, 'Contact') ?>">Contact</a></li>
+            <?php if (isLoggedIn()) : ?>
+                <li><a href="<?= getPostCreateURL() ?>" class="<?= activeIfEqual($title, 'Write') ?>">Write</a></li>
+                <li><a href="<?= getLogoutURL() ?>">Logout</a></li>
+            <?php else : ?>
+                <li><a href="<?= getLoginURL() ?>" class="<?= activeIfEqual($title, 'Login') ?>">HackMe!</a></li>
+            <?php endif; ?>
         </ul>
+
+        <form action="<?= getHomeURL(); ?>">
+            <input type="text" name="q" placeholder="Search" />
+        </form>
     </nav>
 
     <main>
+        <?php if ($messages = getFlashedMessages()) : ?>
+            <div class="messages">
+                <b>Messages from server:</b>
+                <ol>
+                    <?php foreach ($messages as $message) : ?>
+                        <li><?= $message ?></li>
+                    <?php endforeach; ?>
+                </ol>
+            </div>
+        <?php endif; ?>
         <?php require_once $templatePath; ?>
     </main>
 </body>
