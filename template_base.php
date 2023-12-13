@@ -15,7 +15,6 @@
         body {
             color: #3c3836;
             margin: 1em;
-            margin-top: 2em;
             font-size: 1rem;
         }
 
@@ -43,7 +42,7 @@
 
         @media (min-width: 40rem) {
             body {
-                padding: 0rem 10%;
+                padding: 1rem 10%;
             }
 
             th.timestamp {
@@ -70,13 +69,12 @@
         }
 
         nav {
-            padding: 1.5rem 0rem;
+            padding-bottom: 1.5rem;
             display: flex;
-        }
-
-        nav>a {
-            margin-right: 1.2rem;
-            font-size: 1.1em;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         nav>ul {
@@ -150,20 +148,12 @@
                 background-color: #282828;
             }
         }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar">
+    <nav>
         <header>
             <div>
                 <marquee style="width: 0.1ch">
