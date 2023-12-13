@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $newPostId = createPost($title, $content, $isPinned);
         flash('Post created');
 
-        redirect(getPostViewURL($newPostId));
+        redirect(getHomeURL());
     }
 } else {
     renderTemplate('post_form', [
