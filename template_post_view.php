@@ -10,9 +10,10 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", (event) => {
+        const content = <?= json_encode($post->content) ?>;
         const contentPre = document.getElementById("content");
         const renderedContentDiv = document.getElementById("renderedContent");
-        renderedContentDiv.innerHTML = marked.parse(contentPre.innerHTML);
+        renderedContentDiv.innerHTML = marked.parse(content);
         contentPre.style.display = "none";
     });
 </script>
