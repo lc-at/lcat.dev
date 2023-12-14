@@ -2,7 +2,7 @@
 
 <?php if (isset($post)) : ?>
     <p>
-        [<a href="<?= getPostViewURL($post->id) ?>">View post</a>]
+        [<a href="<?= getPostViewURL($post->id, $post->isHidden()) ?>">View post</a>]
     </p>
 <?php endif; ?>
 
