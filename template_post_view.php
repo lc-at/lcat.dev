@@ -24,3 +24,21 @@
 <small class="post-metadata">
     Created: <?= $post->createdAt ?>, Updated: <?= $post->updatedAt ?>, ID: <?= $post->id ?>
 </small>
+
+<?php if (isset($config['giscus_repo'])): ?>
+<script src="https://giscus.app/client.js"
+        data-repo="<?= $config['giscus_repo'] ?>"
+        data-repo-id="<?= $config['giscus_repo_id'] ?>"
+        data-category="<?= $config['giscus_category'] ?>"
+        data-category-id="<?= $config['giscus_category_id'] ?>"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="0"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+<?php endif; ?>

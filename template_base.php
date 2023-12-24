@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>lcat &mdash; <?= $title ?></title>
 
-    <link href="https://fonts.cdnfonts.com/css/fantasque-sans-mono" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/fantasque-sans-mono" rel="stylesheet">
     <style>
         html {
             background-color: #fbf1c7;
@@ -147,6 +147,20 @@
                 color: #fbf1c7;
                 background-color: #282828;
             }
+        }
+
+        main {
+            max-width: 100%;
+        }
+
+        .giscus {
+            padding: 1rem;
+            background-color: #ebdbb2;
+            margin-top: 1rem;
+
+        }
+        .giscus, .giscus-frame {
+            width: 100% !important;
         }
     </style>
 </head>

@@ -1,8 +1,9 @@
 <?php
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-require_once 'urls.php';
 require_once 'auth.php';
+require_once 'config.php';
+require_once 'urls.php';
 
 if (!isset($_SESSION)) {
     session_start();
@@ -11,6 +12,8 @@ if (!isset($_SESSION)) {
 function renderTemplate($templateName, $variables = [])
 {
     $templatePath = 'template_' . $templateName . '.php';
+
+    global $config;
     extract($variables);
     if (!is_readable($templatePath)) {
         return '';

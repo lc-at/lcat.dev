@@ -9,6 +9,11 @@ $config = array(
     'totp_period' => '30',
     'totp_offset' => 0,
     'totp_algo' => 'sha256',
+
+    'giscus_repo' => 'ttycelery/lcat.dev',
+    'giscus_repo_id' => 'MDEwOlJlcG9zaXRvcnkzNzkwMDUzNjc=',
+    'giscus_category' => 'Announcements',
+    'giscus_category_id' => 'DIC_kwDOFpcpt84Cb92U',
 );
 
 foreach ($config as $key => $value) {
