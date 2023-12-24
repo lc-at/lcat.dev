@@ -149,18 +149,15 @@
             }
         }
 
-        main {
-            max-width: 100%;
-        }
-
         .giscus {
             padding: 1rem;
             background-color: #ebdbb2;
             margin-top: 1rem;
-
+            width: inherit;
         }
-        .giscus, .giscus-frame {
-            width: 100% !important;
+
+        .giscus-frame {
+            width: 100%;
         }
     </style>
 </head>
