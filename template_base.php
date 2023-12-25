@@ -150,7 +150,7 @@
         }
 
         .giscus {
-            padding: 1rem;
+            padding: 0.5rem;
             background-color: #ebdbb2;
             margin-top: 1rem;
             width: inherit;
