@@ -22,13 +22,13 @@ if ($searchQuery = ($_GET['q'] ?? false)) {
     $posts = searchPosts($searchQuery, $limit, $offset);
 } else {
     $posts = getAllPostsPinnedFirst($limit, $offset);
+    if (!isLoggedIn()) {
+        $posts = array_filter($posts, function ($post) {
+            return !$post->isHidden();
+        });
+    }
 }
 
-if (!isLoggedIn()) {
-    $posts = array_filter($posts, function ($post) {
-        return !$post->isHidden();
-    });
-}
 
 renderTemplate('post_list', [
     'title' => 'Home',
