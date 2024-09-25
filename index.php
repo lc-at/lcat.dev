@@ -20,6 +20,12 @@ if ($searchQuery = ($_GET['q'] ?? false)) {
     }
     flash('Showing results for: ' . $searchQuery);
     $posts = searchPosts($searchQuery, $limit, $offset);
+
+    if (!isLoggedIn() && strlen($searchQuery) < 10 && count($posts) > 1) {
+        $posts = array_filter($posts, function ($post) {
+            return !$post->isHidden();
+        });
+    }
 } else {
     $posts = getAllPostsPinnedFirst($limit, $offset);
     if (!isLoggedIn()) {
