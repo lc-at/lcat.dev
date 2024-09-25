@@ -21,7 +21,7 @@ if (empty($post) || ($post->isHidden() && !$hasHiddenParameter)) {
 
 $mimeType = $_GET['mimetype'] ?? '';
 if (!empty($mimeType)) {
-    if (!preg_match('/\w+/[-+\w]+/', $mimeType)) {
+    if (!preg_match('#\w+/[-+\w]+#', $mimeType)) {
         flash('Invalid mime type');
         redirect(getHomeURL());
     }
