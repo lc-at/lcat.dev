@@ -19,6 +19,16 @@ if (empty($post) || ($post->isHidden() && !$hasHiddenParameter)) {
     redirect(getHomeURL());
 }
 
+$mimeType = $_GET['mimetype'] ?? '';
+if (!empty($mimeType)) {
+    if (!preg_match('/\w+/[-+\w]+/', $mimeType)) {
+        flash('Invalid mime type');
+        redirect(getHomeURL());
+    }
+    header('Content-Type: ' . $mimeType);
+    die($post->content);
+}
+
 renderTemplate('post_view', [
     'title' => $post->title,
     'post' => $post,
