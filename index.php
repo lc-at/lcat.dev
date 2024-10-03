@@ -5,10 +5,17 @@ require_once 'templating.php';
 require_once 'transactions.php';
 require_once 'auth.php';
 
+if (!is_numeric($_GET['limit']) || !is_numeric($_GET['offset'])) {
+    flash('Eh???');
+    redirect(getHomeURL());
+}
+
+$max_limit = 20 + random_int(0, 20);
+
 $limit = abs($_GET['limit'] ?? 20);
 $offset = abs($_GET['offset'] ?? 0);
 
-if (!isLoggedIn() && ($offset > 0 || $limit > 20)) {
+if (!isLoggedIn() && ($offset > 0 || $limit > $max_limit)) {
     flash('You must be logged in to view more posts');
     redirect(getHomeURL());
 }
