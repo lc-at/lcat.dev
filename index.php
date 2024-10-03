@@ -5,7 +5,7 @@ require_once 'templating.php';
 require_once 'transactions.php';
 require_once 'auth.php';
 
-if (!is_numeric($_GET['limit']) || !is_numeric($_GET['offset'])) {
+if (!is_numeric($_GET['limit'] ?? 0) || !is_numeric($_GET['offset'] ?? 0)) {
     flash('Eh???');
     redirect(getHomeURL());
 }
