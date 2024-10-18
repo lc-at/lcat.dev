@@ -7,6 +7,21 @@ function redirect($url)
     exit();
 }
 
+function flashNextURL($url)
+{
+    $_SESSION['next_url'] = $url;
+}
+
+function getFlashedNextURL()
+{
+    if (isset($_SESSION['next_url'])) {
+        $url = $_SESSION['next_url'];
+        unset($_SESSION['next_url']);
+        return $url;
+    }
+    return null;
+}
+
 function getPostViewURL($post_id, $hidden = false)
 {
     return 'post.php?id=' . $post_id . ($hidden ? '&hidden=1' : '');

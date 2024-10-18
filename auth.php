@@ -44,6 +44,7 @@ function isLoggedIn()
 function requireLogin()
 {
     if (!isLoggedIn()) {
+        flashNextURL($_SERVER['REQUEST_URI']);
         redirect(getLoginURL());
         exit();
     }

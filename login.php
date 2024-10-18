@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (checkLoginOTP($code)) {
         setLoggedIn(true);
         flash('Welcome back!');
-        redirect(getHomeURL());
+        redirect(getFlashedNextURL() ?? getHomeURL());
     } else {
         flash('Invalid code');
     }
