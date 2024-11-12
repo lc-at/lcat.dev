@@ -3,4 +3,5 @@ node_modules/
 *.db
 *.env
 *.env.*
+/dist/
 /config.php
