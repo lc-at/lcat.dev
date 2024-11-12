@@ -138,7 +138,7 @@ function searchPosts($query, $limit, $offset)
     $stmt = $dbHandle->prepare("SELECT
             id, title, content, is_pinned, created_at, updated_at
             FROM log_post
-            WHERE title LIKE :query OR content LIKE :query
+            WHERE title LIKE :query OR content LIKE :query OR id LIKE :query
             ORDER BY is_pinned DESC, created_at DESC
             LIMIT :limit OFFSET :offset");
     $stmt->bindValue(':query', '%' . $query . '%', SQLITE3_TEXT);
