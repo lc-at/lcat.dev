@@ -18,9 +18,9 @@
 
 <br />
 <form>
-    <label>limit: </label>
-    <input type="number" name="limit" style="width: 4ch" value="<?= $limit ?>">
-    <label>offset: </label>
-    <input type="number" name="offset" style="width: 4ch" value="<?= $offset ?>">
+    <label for="limit">limit: </label>
+    <input type="number" id="limit" name="limit" style="width: 4ch" value="<?= $limit ?>">
+    <label for="offset">offset: </label>
+    <input type="number" id="offset" name="offset" style="width: 4ch" value="<?= $offset ?>">
     <input type="submit" value="go!" />
 </form>

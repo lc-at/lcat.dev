@@ -17,7 +17,7 @@ code {
 body,
 pre,
 code {
-  font-family: "Iosevka Web", monospace;
+  font-family: monospace;
 }
 
 @media (max-width: 20rem) {

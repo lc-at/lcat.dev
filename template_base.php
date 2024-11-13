@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>lcat &mdash; <?= $title ?></title>
 
-    <link href="https://pvinis.github.io/iosevka-webfont/3.4.1/iosevka.css" rel="stylesheet" />
     <link href="style.css" rel="stylesheet">
 </head>
 
