@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>lcat &mdash; <?= $title ?></title>
 
+    <link href="https://fonts.cdnfonts.com/css/fantasque-sans-mono" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
 </head>
 
