@@ -8,13 +8,13 @@
 
 <form method="post">
     <p>
-        <label for="title">Title:</label><br />
-        <input type="text" size="50" id="title" name="title" value="<?= htmlspecialchars($post->title ?? '') ?>" required autofocus>
+        <label>Title:</label><br />
+        <input type="text" size="50" name="title" value="<?= htmlspecialchars($post->title ?? '') ?>" required autofocus>
     </p>
 
     <p>
-        <label for="content">Content:</label><br />
-        <textarea name="content" id="content" cols="49" rows="4" required><?= htmlspecialchars($post->content ?? '') ?></textarea>
+        <label>Content:</label><br />
+        <textarea name="content" cols="49" rows="4" required><?= htmlspecialchars($post->content ?? '') ?></textarea>
     </p>
 
     <p>
