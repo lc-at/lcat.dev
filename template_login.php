@@ -7,8 +7,8 @@
 
 <form method="post">
     <p>
-        <label>OTP Code:</label><br />
-        <input type="number" size="10" name="code" required autofocus>
+        <label for="code">OTP Code:</label><br />
+        <input type="number" id="code" size="10" name="code" required autofocus>
     </p>
 
     <input type="submit" name="login" value="Login">
