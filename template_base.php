@@ -55,6 +55,25 @@
         <?php endif; ?>
         <?php require_once $templatePath; ?>
     </main>
+
+    <script>
+				 document
+			.addEventListener
+		  ("keydown",(function(
+		e){const n="lcat";if("h"
+	   ===e.key||"l"===e.key){const
+	  t=document.querySelector(/*egg*/
+	 ".lcat-l-letter"),l=t.parentElement
+	 ,c=(n.indexOf(t.innerText)+("h"===
+    e.key?-1:1)+4)%4;l.innerHTML="";for(
+     let e=0;e<4;e++)if(e===c){const t
+      =document.createElement("span");
+       t.innerText=n[e],t.classList.
+        add("lcat-l-letter"),l./**/
+         appendChild(t)} else l.
+           innerHTML+=n[e]}}));
+               /* hehe */
+    </script>
 </body>
 
 </html>
