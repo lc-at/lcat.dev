@@ -32,6 +32,10 @@ th.timestamp {
   max-width: 10ch;
 }
 
+nav > ul {
+  font-size: smaller;
+}
+
 @media (min-width: 40rem) {
   body {
     padding: 1rem 10%;
@@ -40,6 +44,10 @@ th.timestamp {
   th.timestamp {
     width: 22ch;
     max-width: 19ch;
+  }
+
+  nav > ul {
+    font-size: initial;
   }
 }
 
