@@ -1,4 +1,4 @@
-<h1><?= htmlspecialchars($title); ?></h1>
+<h1 class="marked-inline"><?= htmlspecialchars($title); ?></h1>
 
 <?php if (isLoggedIn()) : ?>
     <p>
@@ -7,7 +7,6 @@
     </p>
 <?php endif; ?>
 
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", (event) => {
         const content = <?= json_encode($post->content) ?>;

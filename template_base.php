@@ -7,6 +7,7 @@
     <title>lcat &mdash; <?= $title ?></title>
 
     <link href="style.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body>
@@ -57,6 +58,13 @@
     </main>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var els = document.getElementsByClassName('marked-inline');
+            for (let i = 0; i < els.length; i++) {
+                els[i].innerHTML = marked.parseInline(els[i].innerHTML);
+            }
+        });
+
 				 document
 			.addEventListener
 		  ("keydown",(function(

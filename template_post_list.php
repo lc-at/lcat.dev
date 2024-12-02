@@ -5,12 +5,11 @@
     </tr>
     <?php foreach ($posts as $post) : ?>
         <tr>
-            <td><?= $post->createdAt ?></td>
             <td>
-                <a href="<?= getPostViewURL($post->id, $post->isHidden()) ?>">
-                    <?php if ($post->isPinned) : ?>[📌]<?php endif; ?>
-                    <?= $post->title ?>
-                </a>
+                <?= $post->createdAt ?><?= $post->isPinned ? 'P' : '' ?>
+            </td>
+            <td>
+                <a class="marked-inline" href="<?= getPostViewURL($post->id, $post->isHidden()) ?>"><?= $post->title ?></a>
             </td>
         </tr>
     <?php endforeach; ?>

@@ -43,8 +43,9 @@ th.timestamp {
   }
 }
 
-a {
-  color: #076678;
+a,
+a > code {
+  color: #076678 !important;
   text-decoration: none;
 }
 
