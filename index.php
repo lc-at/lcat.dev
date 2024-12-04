@@ -42,10 +42,16 @@ if ($searchQuery = ($_GET['q'] ?? false)) {
     }
 }
 
-
-renderTemplate('post_list', [
-    'title' => 'Home',
-    'posts' => $posts,
-    'limit' => $limit,
-    'offset' => $offset,
-]);
+if (isset($_GET['rss'])) {
+    header('Content-Type: application/rss+xml');
+    renderTemplate('rss', [
+        'posts' => $posts,
+    ], null);
+} else {
+    renderTemplate('post_list', [
+        'title' => 'Home',
+        'posts' => $posts,
+        'limit' => $limit,
+        'offset' => $offset,
+    ]);
+}

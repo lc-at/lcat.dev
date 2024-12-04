@@ -9,7 +9,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-function renderTemplate($templateName, $variables = [])
+function renderTemplate($templateName, $variables = [], $layout = 'base')
 {
     $templatePath = 'template_' . $templateName . '.php';
 
@@ -19,7 +19,12 @@ function renderTemplate($templateName, $variables = [])
         return '';
     }
 
-    require 'template_base.php';
+    if ($layout === null) {
+        require_once $templatePath;
+        return;
+    } else {
+        require 'template_' . $layout . '.php';
+    }
 }
 
 function flash($message)
