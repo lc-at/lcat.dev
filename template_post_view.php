@@ -36,7 +36,7 @@
         data-reactions-enabled="0"
         data-emit-metadata="0"
         data-input-position="bottom"
-        data-theme="light"
+        data-theme="gruvbox_light"
         data-lang="en"
         crossorigin="anonymous"
         async>

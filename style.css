@@ -181,7 +181,6 @@ p:not(:first-child) {
 
 .giscus {
   padding: 0.5rem;
-  background-color: #ebdbb2;
   margin-top: 1rem;
   width: inherit;
 }
