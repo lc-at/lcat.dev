@@ -20,6 +20,7 @@ if (!isLoggedIn() && ($offset > 0 || $limit > $max_limit)) {
     redirect(getHomeURL());
 }
 
+$show_hidden = false;
 if ($searchQuery = ($_GET['q'] ?? false)) {
     if (strlen($searchQuery) < 4) {
         flash('Search query must be at least 4 characters long');
@@ -28,18 +29,17 @@ if ($searchQuery = ($_GET['q'] ?? false)) {
     flash('Showing results for: ' . $searchQuery);
     $posts = searchPosts($searchQuery, $limit, $offset);
 
-    if (!isLoggedIn() && strlen($searchQuery) < 10 && count($posts) > 1) {
-        $posts = array_filter($posts, function ($post) {
-            return !$post->isHidden();
-        });
+    if (strlen($searchQuery) > 10 && count($posts) === 1) {
+        $show_hidden = true;
     }
 } else {
     $posts = getAllPostsPinnedFirst($limit, $offset);
-    if (!isLoggedIn()) {
-        $posts = array_filter($posts, function ($post) {
-            return !$post->isHidden();
-        });
-    }
+}
+
+if (!isLoggedIn() && !$show_hidden) {
+    $posts = array_filter($posts, function ($post) {
+        return !$post->isHidden();
+    });
 }
 
 if (isset($_GET['rss'])) {
