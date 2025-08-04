@@ -38,7 +38,7 @@ nav > ul {
 
 @media (min-width: 40rem) {
   body {
-    padding: 1rem 10%;
+    padding: 1rem 16%;
   }
 
   th.timestamp {
