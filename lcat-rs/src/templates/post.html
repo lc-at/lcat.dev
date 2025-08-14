@@ -1,0 +1,51 @@
+{% extends "base" %} {% block content %}
+
+<h1 class="marked-inline">{{ post.title }}</h1>
+
+{% if authenticated %}
+<p>
+  [<a href="edit.php?id={{post.id}}">Edit</a>] [<a
+    href="delete.php?id={{post.id}}"
+    onclick="return confirm('Are you sure?')"
+    >Delete</a
+  >]
+</p>
+{% endif %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", (event) => {
+      const content = {{ post.content | tojson }};
+      const contentPre = document.getElementById("content");
+      const renderedContentDiv = document.getElementById("renderedContent");
+      renderedContentDiv.innerHTML = marked.parse(content);
+      contentPre.style.display = "none";
+  });
+</script>
+
+<pre id="content">{{ post.content }}</pre>
+<div class="post-content" id="renderedContent"></div>
+
+<small class="post-metadata">
+  Created: {{ post.created_at }}, Updated: {{ post.updated_at }}, ID: {{ post.id
+  }}
+</small>
+
+<script
+  src="https://giscus.app/client.js"
+  data-repo="lc-at/lcat.dev"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkzNzkwMDUzNjc="
+  data-category="Announcements"
+  data-category-id="DIC_kwDOFpcpt84Cb92U"
+  data-mapping="specific"
+  data-term="10244e78-099e-4a60-8333-181ce9dac779"
+  data-strict="0"
+  data-reactions-enabled="0"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="gruvbox_light"
+  data-lang="en"
+  crossorigin="anonymous"
+  async
+></script>
+
+{% endblock %}
